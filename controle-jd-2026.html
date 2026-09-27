@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Controle — JANITOR DAYS</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="adminPage">
+
+<main class="adminShell">
+
+<section id="loginBox" class="adminCard">
+
+  <div class="eyebrow">RESTRICTED AREA</div>
+
+  <h1>
+    CONTROLE<br>
+    <em>JANITOR DAYS</em>
+  </h1>
+
+  <p>
+    Área administrativa. A página não aparece na navegação pública.
+  </p>
+
+  <form id="loginForm">
+
+    <input
+      id="email"
+      type="email"
+      value="jadaybanda@gmail.com"
+      placeholder="E-mail do administrador"
+      autocomplete="username"
+      required
+    >
+
+    <input
+      id="password"
+      type="password"
+      placeholder="Senha"
+      autocomplete="current-password"
+      required
+    >
+
+    <button class="bigButton" type="submit">
+      ENTRAR
+    </button>
+
+    <div id="loginStatus"></div>
+
+  </form>
+
+</section>
+
+
+<section id="dashboard" hidden>
+
+<header class="adminTop">
+
+  <div>
+    <div class="eyebrow">ADMIN / REPERTÓRIO</div>
+    <h1>REPERTÓRIO</h1>
+  </div>
+
+  <button id="logout" class="smallButton">
+    SAIR
+  </button>
+
+</header>
+
+
+<div class="stats">
+
+  <div>
+    <small>TOTAL</small>
+    <strong id="total">0</strong>
+  </div>
+
+  <div>
+    <small>PENDENTES</small>
+    <strong id="pending">0</strong>
+  </div>
+
+  <div>
+    <small>ACEITAS</small>
+    <strong id="accepted">0</strong>
+  </div>
+
+  <div>
+    <small>MANHÃ</small>
+    <strong id="morning">0</strong>
+  </div>
+
+  <div>
+    <small>TARDE</small>
+    <strong id="afternoon">0</strong>
+  </div>
+
+</div>
+
+
+<div class="showAdminHeader">
+
+  <div>
+    <div class="eyebrow">AGENDA / AO VIVO</div>
+    <h2>PRÓXIMOS SHOWS</h2>
+  </div>
+
+  <button
+    id="scheduleShowBtn"
+    class="scheduleShowBtn"
+  >
+    <span>＋</span>
+    AGENDAR PRÓXIMO SHOW
+  </button>
+
+</div>
+
+
+<div
+  id="showsAdminList"
+  class="showsAdminList"
+></div>
+
+
+<div
+  id="showModal"
+  class="showModal"
+  hidden
+>
+
+  <div class="showModalBackdrop"></div>
+
+  <div class="showModalCard">
+
+    <button
+      id="closeShowModal"
+      class="closeShowModal"
+    >
+      ×
+    </button>
+
+    <div class="eyebrow">
+      JANITOR DAYS / AGENDA
+    </div>
+
+    <h2>
+      AGENDAR<br>
+      <em>PRÓXIMO SHOW</em>
+    </h2>
+
+    <p class="showModalDescription">
+      Cadastre o próximo show da banda. Ele aparecerá automaticamente na Home.
+    </p>
+
+
+    <form id="showForm">
+
+
+      <label>
+
+        NOME DO SHOW
+
+        <input
+          id="showName"
+          type="text"
+          placeholder="Ex: Show Janitor Days"
+          required
+        >
+
+      </label>
+
+
+      <label>
+
+        DATA DO SHOW
+
+        <input
+          id="showDate"
+          type="date"
+        >
+
+        <label class="undefinedDateOption">
+
+          <input
+            id="showDateUndefined"
+            type="checkbox"
+          >
+
+          <span>
+            DATA AINDA NÃO DEFINIDA
+          </span>
+
+        </label>
+
+      </label>
+
+
+      <div
+        id="showFormStatus"
+        class="showFormStatus"
+      ></div>
+
+
+      <button
+        type="submit"
+        class="confirmShowBtn"
+      >
+        AGENDAR SHOW <b>↗</b>
+      </button>
+
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<div class="adminTools">
+
+  <input
+    id="search"
+    placeholder="Pesquisar música ou artista..."
+    autocomplete="off"
+  >
+
+  <select id="statusFilter">
+
+    <option value="ALL">TODAS</option>
+    <option value="PENDING">PENDENTES</option>
+    <option value="REVIEWED">ANALISADAS</option>
+    <option value="ACCEPTED">ACEITAS</option>
+    <option value="REJECTED">RECUSADAS</option>
+
+  </select>
+
+</div>
+
+
+<div class="repertoireGrid">
+
+
+  <section
+    class="repertoirePanel"
+    data-shift-panel="MORNING"
+  >
+
+    <div class="panelTitle">
+
+      <div>
+
+        <span>☀</span>
+
+        <div>
+          <small>TURNO</small>
+          <h2>MANHÃ</h2>
+        </div>
+
+      </div>
+
+      <strong id="morningCount">0</strong>
+
+    </div>
+
+
+    <div class="tableWrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>MÚSICA</th>
+            <th>ARTISTA</th>
+            <th>OBSERVAÇÃO</th>
+            <th>DATA</th>
+            <th>STATUS</th>
+            <th></th>
+          </tr>
+
+        </thead>
+
+        <tbody id="morningRows"></tbody>
+
+      </table>
+
+    </div>
+
+  </section>
+
+
+
+  <section
+    class="repertoirePanel"
+    data-shift-panel="AFTERNOON"
+  >
+
+    <div class="panelTitle">
+
+      <div>
+
+        <span>☾</span>
+
+        <div>
+          <small>TURNO</small>
+          <h2>TARDE</h2>
+        </div>
+
+      </div>
+
+      <strong id="afternoonCount">0</strong>
+
+    </div>
+
+
+    <div class="tableWrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>MÚSICA</th>
+            <th>ARTISTA</th>
+            <th>OBSERVAÇÃO</th>
+            <th>DATA</th>
+            <th>STATUS</th>
+            <th></th>
+          </tr>
+
+        </thead>
+
+        <tbody id="afternoonRows"></tbody>
+
+      </table>
+
+    </div>
+
+  </section>
+
+
+</div>
+
+</section>
+
+</main>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="database.js"></script>
+<script src="admin.js"></script>
+
+</body>
+</html>
+
